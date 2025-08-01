@@ -1,0 +1,21 @@
+/* components/verse-card.css */
+
+.verse-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 500;
+  color: var(--foreground); /* Use foreground for text */
+  direction: rtl;
+  unicode-bidi: embed;
+  text-align: right;
+  font-family: "Noto Sans Arabic", "Arabic Typesetting", "Traditional Arabic", "Tahoma", "Arial Unicode MS",
+    "Lucida Grande", sans-serif;
+}
+
+.verse-sur {
+  font-size: 0.8rem;
+  color: var(--muted-foreground); /* Use muted-foreground for secondary text */
+  direction: rtl;
+  unicode-bidi: embed;
+  text-align: right;
+}
