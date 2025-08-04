@@ -5,7 +5,6 @@ import { useState, useEffect, useCallback, useRef } from "react"
 interface SpeechRecognitionHook {
   isListening: boolean
   transcript: string
-  interimTranscript: string
   confidence: number
   error: string | null
   startListening: () => void
@@ -17,173 +16,160 @@ interface SpeechRecognitionHook {
 export function useSpeechRecognition(): SpeechRecognitionHook {
   const [isListening, setIsListening] = useState(false)
   const [transcript, setTranscript] = useState("")
-  const [interimTranscript, setInterimTranscript] = useState("")
   const [confidence, setConfidence] = useState(0)
   const [error, setError] = useState<string | null>(null)
   const [isSupported, setIsSupported] = useState(false)
 
-  const recognitionRef = useRef<any>(null)
-  const restartTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const isManualStopRef = useRef(false) // Ref to track user-initiated stop
+  const recognitionRef = useRef<SpeechRecognition | null>(null)
+  const continuousListenRef = useRef(false)
+  const lastTranscriptRef = useRef("")
+  const isMountedRef = useRef(false)
 
+  // Initialize speech recognition
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-      if (SpeechRecognition) {
-        setIsSupported(true)
-        recognitionRef.current = new SpeechRecognition()
-
-        const recognition = recognitionRef.current
-
-        recognition.continuous = true // Set to true for continuous listening until manual stop
-        recognition.interimResults = true
-        recognition.maxAlternatives = 1
-
-        recognition.lang = "ur-PK" // Using Urdu as primary language (closest to Sindhi)
-
-        recognition.onstart = () => {
-          console.log("Speech recognition started")
+    isMountedRef.current = true
+    
+    const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition
+    if (SpeechRecognition) {
+      setIsSupported(true)
+      recognitionRef.current = new SpeechRecognition()
+      
+      const recognition = recognitionRef.current
+      recognition.continuous = true
+      recognition.interimResults = true
+      recognition.maxAlternatives = 1
+      recognition.lang = "sd-SD" // Sindhi language code
+      
+      recognition.onstart = () => {
+        if (isMountedRef.current) {
           setIsListening(true)
           setError(null)
-          isManualStopRef.current = false // Reset manual stop flag on start
-          if (restartTimeoutRef.current) {
-            clearTimeout(restartTimeoutRef.current)
-            restartTimeoutRef.current = null
-          }
-        }
-
-        recognition.onresult = (event) => {
-          let currentInterim = ""
-          let currentFinal = ""
-          let currentConfidence = 0
-
-          // Process all results from the current event
-          for (let i = event.resultIndex; i < event.results.length; ++i) {
-            const result = event.results[i]
-            const transcriptPart = result[0].transcript
-            currentConfidence = result[0].confidence
-
-            if (result.isFinal) {
-              currentFinal += transcriptPart + " "
-            } else {
-              currentInterim += transcriptPart
-            }
-          }
-
-          if (currentFinal) {
-            setTranscript((prev) => prev + currentFinal)
-            setInterimTranscript("") // Clear interim once final is processed
-          } else {
-            setInterimTranscript(currentInterim)
-          }
-          setConfidence(currentConfidence)
-        }
-
-        recognition.onerror = (event) => {
-          console.error("Speech recognition error:", event.error)
-          setError(`Speech recognition error: ${event.error}`)
-          setIsListening(false) // Stop listening on error
-
-          // For 'aborted' or 'no-speech', attempt to restart if not manual stop
-          // In continuous mode, these errors usually mean a problem, so we try to recover.
-          if (
-            !isManualStopRef.current &&
-            (event.error === "aborted" || event.error === "no-speech" || event.error === "audio-capture")
-          ) {
-            console.log("Attempting to restart speech recognition due to recoverable error.")
-            restartTimeoutRef.current = setTimeout(() => {
-              try {
-                recognition.start()
-              } catch (e) {
-                console.error("Error restarting recognition after error:", e)
-                setError("Failed to restart speech recognition automatically after error.")
-              }
-            }, 100) // Short delay before restarting
-          }
-        }
-
-        recognition.onend = () => {
-          console.log("Speech recognition ended (onend event).")
-          setIsListening(false) // Always set to false when recognition ends
-
-          // If it was NOT a manual stop, and continuous was intended, it means an unexpected end.
-          // In continuous mode, onend only fires on stop() or unexpected termination.
-          // So, if not manual stop, it's an unexpected end, try to restart.
-          if (!isManualStopRef.current) {
-            console.log("Unexpected speech recognition end. Attempting to restart.")
-            restartTimeoutRef.current = setTimeout(() => {
-              try {
-                recognition.start()
-              } catch (e) {
-                console.error("Error restarting recognition after unexpected end:", e)
-                setError("Failed to restart speech recognition automatically after unexpected end.")
-              }
-            }, 100)
-          }
-          isManualStopRef.current = false // Reset flag after handling
         }
       }
+      
+      recognition.onresult = (event) => {
+        let finalTranscript = ""
+        let interimTranscript = ""
+        let highestConfidence = 0
+        
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const result = event.results[i]
+          
+          if (result.isFinal) {
+            finalTranscript += result[0].transcript + " "
+            if (result[0].confidence > highestConfidence) {
+              highestConfidence = result[0].confidence
+            }
+          } else {
+            interimTranscript += result[0].transcript
+          }
+        }
+        
+        if (isMountedRef.current) {
+          if (finalTranscript) {
+            setTranscript(prev => prev + finalTranscript)
+            lastTranscriptRef.current = finalTranscript
+            setConfidence(highestConfidence)
+          } else if (interimTranscript) {
+            setTranscript(prev => {
+              // Remove previous interim result
+              const base = prev.endsWith(lastTranscriptRef.current) 
+                ? prev.slice(0, -lastTranscriptRef.current.length) 
+                : prev
+              return base + interimTranscript
+            })
+            lastTranscriptRef.current = interimTranscript
+          }
+        }
+      }
+      
+      recognition.onerror = (event) => {
+        if (isMountedRef.current) {
+          setError(`Recognition error: ${event.error}`)
+          setIsListening(false)
+          
+          // Auto-recover from common errors
+          if (['no-speech', 'audio-capture', 'network'].includes(event.error)) {
+            setTimeout(() => {
+              if (continuousListenRef.current && recognitionRef.current) {
+                try {
+                  recognitionRef.current.start()
+                } catch (e) {
+                  console.error("Recovery start failed:", e)
+                }
+              }
+            }, 1000)
+          }
+        }
+      }
+      
+      recognition.onend = () => {
+        if (isMountedRef.current) {
+          setIsListening(false)
+          
+          // Auto-restart if in continuous mode
+          if (continuousListenRef.current) {
+            setTimeout(() => {
+              if (recognitionRef.current && !isListening) {
+                try {
+                  recognitionRef.current.start()
+                } catch (e) {
+                  console.error("Auto-restart failed:", e)
+                }
+              }
+            }, 300)
+          }
+        }
+      }
+    } else {
+      setIsSupported(false)
+      setError("Speech recognition not supported in this browser")
     }
 
     return () => {
-      if (restartTimeoutRef.current) {
-        clearTimeout(restartTimeoutRef.current)
-      }
-      // Clean up recognition object and its event handlers on unmount
+      isMountedRef.current = false
       if (recognitionRef.current) {
-        recognitionRef.current.stop()
-        recognitionRef.current.onresult = null
-        recognitionRef.current.onerror = null
         recognitionRef.current.onend = null
+        recognitionRef.current.onerror = null
+        recognitionRef.current.onresult = null
+        recognitionRef.current.onstart = null
+        recognitionRef.current.stop()
       }
     }
-  }, []) // Empty dependency array ensures this runs once on mount
+  }, [])
 
   const startListening = useCallback(() => {
+    continuousListenRef.current = true
     if (recognitionRef.current && !isListening) {
       try {
-        isManualStopRef.current = false // Ensure this is false when starting
         recognitionRef.current.start()
       } catch (error) {
-        console.error("Error starting recognition:", error)
-        setError("Failed to start speech recognition")
+        setError("Failed to start: " + (error as Error).message)
       }
     }
   }, [isListening])
 
   const stopListening = useCallback(() => {
+    continuousListenRef.current = false
     if (recognitionRef.current && isListening) {
-      isManualStopRef.current = true // Set flag for manual stop
       recognitionRef.current.stop()
-      if (restartTimeoutRef.current) {
-        clearTimeout(restartTimeoutRef.current)
-        restartTimeoutRef.current = null
-      }
     }
   }, [isListening])
 
   const resetTranscript = useCallback(() => {
     setTranscript("")
-    setInterimTranscript("")
     setConfidence(0)
-    setError(null)
-    // If listening, stop and restart to clear internal state
-    if (isListening) {
-      stopListening()
-      // A small delay before restarting to ensure state is fully reset
-      setTimeout(() => startListening(), 200)
-    }
-  }, [isListening, startListening, stopListening])
+    lastTranscriptRef.current = ""
+  }, [])
 
   return {
     isListening,
     transcript,
-    interimTranscript,
     confidence,
     error,
     startListening,
     stopListening,
     resetTranscript,
-    isSupported,
+    isSupported
   }
 }
