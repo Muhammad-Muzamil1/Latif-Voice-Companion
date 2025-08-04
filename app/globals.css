@@ -4,141 +4,134 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(98% 0 0); /* ajrak-cream */
-  --foreground: oklch(15% 0 0); /* ajrak-dark */
-  --card: oklch(98% 0 0); /* ajrak-cream */
-  --card-foreground: oklch(15% 0 0); /* ajrak-dark */
-  --popover: oklch(98% 0 0); /* ajrak-cream */
-  --popover-foreground: oklch(15% 0 0); /* ajrak-dark */
-  --primary: oklch(35% 0.15 20); /* ajrak-red */
-  --primary-foreground: oklch(98% 0 0); /* ajrak-cream */
-  --secondary: oklch(30% 0.1 240); /* ajrak-blue */
-  --secondary-foreground: oklch(98% 0 0); /* ajrak-cream */
-  --muted: oklch(90% 0.05 0); /* Light neutral */
-  --muted-foreground: oklch(50% 0 0); /* Medium gray */
-  --accent: oklch(70% 0.15 90); /* ajrak-gold */
-  --accent-foreground: oklch(20% 0 0); /* Dark text on gold */
-  --destructive: oklch(50% 0.2 20); /* A slightly different red for destructive */
-  --destructive-foreground: oklch(98% 0 0);
-  --border: oklch(85% 0 0); /* Lighter border */
-  --input: oklch(95% 0 0); /* Light input background */
-  --ring: oklch(35% 0.15 20); /* ajrak-red for ring */
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --background: oklch(98% 0 0);               /* ajrak-cream */
+  --foreground: oklch(18% 0 0);               /* slightly warmer black */
+  --card: oklch(97.5% 0 0);                   /* cream */
+  --card-foreground: oklch(15% 0 0);          
+  --popover: oklch(98% 0 0);                  
+  --popover-foreground: oklch(15% 0 0);       
+  --primary: oklch(35% 0.15 20);              /* ajrak-red */
+  --primary-foreground: oklch(98% 0 0);       
+  --secondary: oklch(30% 0.1 240);            /* ajrak-blue */
+  --secondary-foreground: oklch(98% 0 0);     
+  --muted: oklch(93% 0.05 0);                 
+  --muted-foreground: oklch(45% 0 0);         
+  --accent: oklch(70% 0.15 90);               /* gold touch */
+  --accent-foreground: oklch(15% 0 0);        
+  --destructive: oklch(50% 0.2 20);           
+  --destructive-foreground: oklch(98% 0 0);   
+  --border: oklch(86% 0 0);                   
+  --input: oklch(95% 0 0);                    
+  --ring: oklch(35% 0.15 20);                 
   --radius: 0.625rem;
+
+  /* Sidebar theming */
   --sidebar: oklch(98% 0 0);
   --sidebar-foreground: oklch(15% 0 0);
   --sidebar-primary: oklch(35% 0.15 20);
   --sidebar-primary-foreground: oklch(98% 0 0);
   --sidebar-accent: oklch(70% 0.15 90);
-  --sidebar-accent-foreground: oklch(20% 0 0);
+  --sidebar-accent-foreground: oklch(15% 0 0);
   --sidebar-border: oklch(85% 0 0);
   --sidebar-ring: oklch(35% 0.15 20);
 }
 
+/* 🌙 Dark Theme with Ajrak Flavor */
 .dark {
-  --background: oklch(15% 0 0); /* ajrak-dark */
-  --foreground: oklch(98% 0 0); /* ajrak-cream */
-  --card: oklch(15% 0 0); /* ajrak-dark */
-  --card-foreground: oklch(98% 0 0); /* ajrak-cream */
-  --popover: oklch(15% 0 0); /* ajrak-dark */
-  --popover-foreground: oklch(98% 0 0); /* ajrak-cream */
-  --primary: oklch(98% 0 0); /* ajrak-cream */
-  --primary-foreground: oklch(35% 0.15 20); /* ajrak-red */
-  --secondary: oklch(25% 0.05 240); /* Darker ajrak-blue */
-  --secondary-foreground: oklch(98% 0 0); /* ajrak-cream */
-  --muted: oklch(20% 0 0); /* Dark neutral */
-  --muted-foreground: oklch(70% 0 0); /* Lighter gray */
-  --accent: oklch(25% 0.1 90); /* Darker gold */
-  --accent-foreground: oklch(98% 0 0); /* ajrak-cream */
-  --destructive: oklch(40% 0.15 20); /* Darker red for destructive */
+  --background: oklch(12% 0 0);
+  --foreground: oklch(96% 0 0);
+  --card: oklch(15% 0 0);
+  --card-foreground: oklch(98% 0 0);
+  --popover: oklch(13% 0 0);
+  --popover-foreground: oklch(96% 0 0);
+  --primary: oklch(98% 0 0);
+  --primary-foreground: oklch(35% 0.15 20);
+  --secondary: oklch(25% 0.05 240);
+  --secondary-foreground: oklch(98% 0 0);
+  --muted: oklch(22% 0 0);
+  --muted-foreground: oklch(75% 0 0);
+  --accent: oklch(25% 0.1 90);
+  --accent-foreground: oklch(98% 0 0);
+  --destructive: oklch(40% 0.15 20);
   --destructive-foreground: oklch(98% 0 0);
-  --border: oklch(20% 0 0); /* Darker border */
-  --input: oklch(20% 0 0); /* Darker input background */
-  --ring: oklch(98% 0 0); /* ajrak-cream for ring */
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(20% 0 0);
-  --sidebar-foreground: oklch(98% 0 0);
-  --sidebar-primary: oklch(98% 0 0);
-  --sidebar-primary-foreground: oklch(35% 0.15 20);
-  --sidebar-accent: oklch(25% 0.1 90);
-  --sidebar-accent-foreground: oklch(98% 0 0);
-  --sidebar-border: oklch(20% 0 0);
-  --sidebar-ring: oklch(98% 0 0);
+  --border: oklch(22% 0 0);
+  --input: oklch(20% 0 0);
+  --ring: oklch(98% 0 0);
 }
 
-/* Sindhi/Urdu text styling with system font fallbacks */
+/* 🌐 Cultural Arabic/Sindhi Typography */
 .sindhi-font {
-  font-family: "Noto Sans Arabic", "Arabic Typesetting", "Traditional Arabic", "Tahoma", "Arial Unicode MS",
-    "Lucida Grande", sans-serif;
-  font-feature-settings: "liga" 1, "dlig" 1, "calt" 1;
-  text-rendering: optimizeLegibility;
+  font-family: "Noto Nastaliq Urdu", "Noto Sans Arabic", "Arabic Typesetting", "Traditional Arabic", "Tahoma", sans-serif;
   direction: rtl;
-  unicode-bidi: embed;
-  font-weight: 500;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga" 1, "calt" 1;
   line-height: 1.8;
+  font-weight: 500;
 }
 
-/* Enhanced verse card styling */
-.verse-card {
-  transition: all 0.3s ease;
-}
-
-.verse-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-/* Feedback button animations */
-.feedback-button {
-  transition: all 0.2s ease;
-}
-
-.feedback-button:hover {
-  transform: scale(1.05);
-}
-
-/* Processing animation */
-@keyframes pulse-ajrak-red {
-  0%,
-  100% {
-    background-color: oklch(35% 0.15 20); /* ajrak-red */
-  }
-  50% {
-    background-color: oklch(45% 0.15 20); /* slightly lighter ajrak-red */
-  }
-}
-
-.processing-indicator {
-  animation: pulse-ajrak-red 2s ease-in-out infinite;
-}
-
-/* Improved Arabic/Urdu text rendering */
+/* 🧾 Urdu Text Fix */
 .arabic-text {
-  font-family: "Noto Sans Arabic", "Arabic Typesetting", "Traditional Arabic", "Tahoma", "Arial Unicode MS", serif;
+  font-family: "Noto Nastaliq Urdu", "Noto Sans Arabic", serif;
   direction: rtl;
   text-align: right;
-  unicode-bidi: embed;
-  font-feature-settings: "liga" on, "calt" on, "kern" on;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  font-feature-settings: "liga" on, "calt" on;
 }
 
-/* Responsive text sizing for mobile */
+/* 📜 Verse Cards */
+.verse-card {
+  transition: all 0.4s ease;
+  background: linear-gradient(145deg, oklch(98% 0 0), oklch(95% 0.1 20));
+  border: 2px dotted var(--accent);
+  border-radius: 0.75rem;
+}
+.verse-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ✨ Buttons */
+.feedback-button {
+  transition: all 0.3s ease-in-out;
+}
+.feedback-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: var(--primary-foreground);
+}
+
+/* 🔄 Pulse Animation for Ajrak Red */
+@keyframes pulse-ajrak-red {
+  0%, 100% { background-color: oklch(35% 0.15 20); }
+  50% { background-color: oklch(45% 0.15 20); }
+}
+.processing-indicator {
+  animation: pulse-ajrak-red 2s infinite;
+}
+
+/* 📱 Responsive Sindhi Font */
 @media (max-width: 640px) {
   .sindhi-font {
-    font-size: 0.95rem;
-    line-height: 1.7;
+    font-size: 1rem;
+    line-height: 1.6;
   }
 }
 
+/* 🧱 Gradient Patterns (Ajrak Touch) */
+.section-pattern {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--primary),
+    var(--primary) 10px,
+    var(--accent) 10px,
+    var(--accent) 20px
+  );
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+}
+
+/* 🧬 Theme Variables (Inline Style) */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -159,15 +152,6 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -176,13 +160,18 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
+/* 🌍 Tailwind Base Layer */
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 transition-all duration-300;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans scroll-smooth antialiased;
   }
 }

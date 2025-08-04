@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Latif Voice Companion",
     short_name: "Latif Companion",
-    description: "AI-powered Sindhi poetry companion for Shah Jo Risalo",
+    description: "NLP powered Sindhi poetry companion for Shah Jo Risalo",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",
