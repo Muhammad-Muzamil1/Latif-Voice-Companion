@@ -115,21 +115,26 @@ export function VoiceInterface() {
 
           {/* Mic Button */}
           <div className="mb-6 flex justify-center gap-4">
-            <Button
-              onClick={handleMicClick}
-              size="lg"
-              className={`w-20 h-20 rounded-full transition-all duration-300 ${
-                isListening
-                  ? "bg-ajrak-red hover:bg-ajrak-red/90 animate-pulse"
-                  : "bg-ajrak-blue hover:bg-ajrak-blue/90"
-              }`}
-            >
-              {isListening ? (
-                <MicOff className="w-8 h-8 text-ajrak-cream" />
-              ) : (
-                <Mic className="w-8 h-8 text-ajrak-cream" />
-              )}
-            </Button>
+           <Button
+  onClick={handleMicClick}
+  size="lg"
+  className="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full w-20 h-20 p-0 outline-none focus-visible:ring-[3px] transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
+  style={{
+    background: isListening
+      ? "#b22222" // deep red like 'ajrak-red'
+      : "linear-gradient(to bottom right, #f8d147, #f7b733, #f8931f)",
+    boxShadow: isListening
+      ? undefined
+      : "0 4px 20px rgba(248, 211, 71, 0.4)", // yellow glow for gradient
+    animation: isListening ? "pulse 2s infinite" : undefined,
+  }}
+>
+  {isListening ? (
+    <MicOff style={{ width: "2rem", height: "2rem", color: "#fefae0" /* light cream */ }} />
+  ) : (
+    <Mic style={{ width: "2rem", height: "2rem", color: "#fefae0" }} />
+  )}
+</Button>
 
             {fullTranscript && (
               <Button
@@ -226,14 +231,26 @@ export function VoiceInterface() {
         <Card className="fixed bottom-4 right-4 w-auto bg-ajrak-cream text-ajrak-dark border-ajrak-red/30 shadow-lg">
           <CardContent className="p-3">
             <Button
-              onClick={stopSpeaking}
-              variant="outline"
-              size="sm"
-              className="flex items-center gap-2 bg-ajrak-cream text-ajrak-dark border-ajrak-dark/30 hover:bg-ajrak-dark/10 transition-all duration-300"
-            >
-              <VolumeX className="w-4 h-4" />
-              Stop Audio
-            </Button>
+  onClick={stopSpeaking}
+  variant="outline"
+  size="sm"
+  className="flex items-center gap-2 transition-all duration-300"
+  style={{
+    backgroundColor: "#fefae0",       // ajrak-cream
+    color: "#1e1e1e",                 // ajrak-dark
+    border: "1px solid rgba(30, 30, 30, 0.3)", // border-ajrak-dark/30
+  }}
+  onMouseOver={(e) => {
+    e.currentTarget.style.backgroundColor = "rgba(30, 30, 30, 0.1)" // hover:bg-ajrak-dark/10
+  }}
+  onMouseOut={(e) => {
+    e.currentTarget.style.backgroundColor = "#fefae0" // reset to default bg
+  }}
+>
+  <VolumeX style={{ width: "1rem", height: "1rem" }} />
+  Stop Audio
+</Button>
+
           </CardContent>
         </Card>
       )}
