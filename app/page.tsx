@@ -1,7 +1,4 @@
 
-Here's the enhanced version with a *highly* distinctive mic button, smooth click animations, and Sindhi-inspired styling:
-
-```tsx
 "use client"
 
 import { useState } from "react"
