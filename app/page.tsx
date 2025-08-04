@@ -13,47 +13,87 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<TabType>("voice")
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-ajrak-cream to-ajrak-cream/80 text-ajrak-dark">
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundImage: "linear-gradient(to bottom right, #fdf6ec, rgba(253, 246, 236, 0.8))",
+        color: "#1b1b1b",
+      }}
+    >
       {/* Header */}
-      <header className="bg-ajrak-cream shadow-md border-b border-ajrak-red/30">
+      <header
+        style={{
+          backgroundColor: "#fdf6ec",
+          borderBottom: "1px solid rgba(139, 30, 63, 0.3)",
+          boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
+        }}
+      >
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-ajrak-dark">Latif Voice Companion</h1>
-              <p className="text-sm text-ajrak-dark/80">Embracing Sindhi Heritage</p>
+              <h1 className="text-2xl font-bold" style={{ color: "#1b1b1b" }}>
+                Latif Voice Companion
+              </h1>
+              <p className="text-sm" style={{ color: "rgba(27, 27, 27, 0.8)" }}>
+                Embracing Sindhi Heritage
+              </p>
             </div>
             <div className="text-right">
-              <p className="text-sm text-ajrak-dark/80">Shah Jo Risalo</p>
-              <p className="text-xs text-ajrak-dark/60">Authentic Sindhi Poetry</p>
+              <p className="text-sm" style={{ color: "rgba(27, 27, 27, 0.8)" }}>
+                Shah Jo Risalo
+              </p>
+              <p className="text-xs" style={{ color: "rgba(27, 27, 27, 0.6)" }}>
+                Authentic Sindhi Poetry
+              </p>
             </div>
           </div>
         </div>
       </header>
 
       {/* Navigation */}
-      <nav className="bg-ajrak-cream border-b border-ajrak-red/30">
+      <nav
+        style={{
+          backgroundColor: "#fdf6ec",
+          borderBottom: "1px solid rgba(139, 30, 63, 0.3)",
+        }}
+      >
         <div className="max-w-6xl mx-auto px-4">
-          <div className="flex space-x-1">
+          <div className="flex space-x-2 py-2">
             <Button
-              variant={activeTab === "voice" ? "default" : "ghost"}
+              variant="ghost"
               onClick={() => setActiveTab("voice")}
-              className="flex items-center gap-2 text-ajrak-dark data-[state=active]:bg-ajrak-red data-[state=active]:text-ajrak-cream hover:bg-ajrak-red/10 transition-all duration-300"
+              className="flex items-center gap-2 px-4 py-2 rounded-md border transition-all duration-300"
+              style={{
+                backgroundColor: activeTab === "voice" ? "#8b1e3f" : "transparent",
+                color: activeTab === "voice" ? "#fdf6ec" : "#1b1b1b",
+                borderColor: "#8b1e3f",
+              }}
             >
               <Mic className="w-4 h-4" />
               Voice Recognition
             </Button>
             <Button
-              variant={activeTab === "library" ? "default" : "ghost"}
+              variant="ghost"
               onClick={() => setActiveTab("library")}
-              className="flex items-center gap-2 text-ajrak-dark data-[state=active]:bg-ajrak-red data-[state=active]:text-ajrak-cream hover:bg-ajrak-red/10 transition-all duration-300"
+              className="flex items-center gap-2 px-4 py-2 rounded-md border transition-all duration-300"
+              style={{
+                backgroundColor: activeTab === "library" ? "#8b1e3f" : "transparent",
+                color: activeTab === "library" ? "#fdf6ec" : "#1b1b1b",
+                borderColor: "#8b1e3f",
+              }}
             >
               <BookOpen className="w-4 h-4" />
               Verse Library
             </Button>
             <Button
-              variant={activeTab === "about" ? "default" : "ghost"}
+              variant="ghost"
               onClick={() => setActiveTab("about")}
-              className="flex items-center gap-2 text-ajrak-dark data-[state=active]:bg-ajrak-red data-[state=active]:text-ajrak-cream hover:bg-ajrak-red/10 transition-all duration-300"
+              className="flex items-center gap-2 px-4 py-2 rounded-md border transition-all duration-300"
+              style={{
+                backgroundColor: activeTab === "about" ? "#8b1e3f" : "transparent",
+                color: activeTab === "about" ? "#fdf6ec" : "#1b1b1b",
+                borderColor: "#8b1e3f",
+              }}
             >
               <Info className="w-4 h-4" />
               About
@@ -70,11 +110,21 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-ajrak-cream border-t border-ajrak-red/30 mt-16">
+      <footer
+        style={{
+          backgroundColor: "#fdf6ec",
+          borderTop: "1px solid rgba(139, 30, 63, 0.3)",
+          marginTop: "4rem",
+        }}
+      >
         <div className="max-w-6xl mx-auto px-4 py-8">
           <div className="text-center">
-            <p className="text-ajrak-dark/80 mb-2">Experience the wisdom of Shah Abdul Latif Bhittai.</p>
-            <p className="text-sm text-ajrak-dark/60">Authentic Sindhi poetry, powered by AI.</p>
+            <p style={{ color: "rgba(27, 27, 27, 0.8)", marginBottom: "0.5rem" }}>
+              Experience the wisdom of Shah Abdul Latif Bhittai.
+            </p>
+            <p className="text-sm" style={{ color: "rgba(27, 27, 27, 0.6)" }}>
+              Authentic Sindhi poetry, powered by AI.
+            </p>
           </div>
         </div>
       </footer>
@@ -82,50 +132,69 @@ export default function Home() {
   )
 }
 
-// About section
+// About Section
 function AboutSection() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      <Card className="bg-ajrak-cream text-ajrak-dark border-ajrak-red/30 shadow-lg transition-all duration-300">
+      <Card
+        className="shadow-md rounded-xl border"
+        style={{
+          backgroundColor: "#fdf6ec",
+          color: "#1b1b1b",
+          borderColor: "rgba(139, 30, 63, 0.3)",
+        }}
+      >
         <CardContent className="p-8">
-          <h2 className="text-2xl font-bold text-ajrak-dark mb-4">Latif Voice Companion</h2>
-          <div className="prose prose-gray max-w-none">
-            <p className="text-ajrak-dark/80 leading-relaxed mb-4">
+          <h2 className="text-2xl font-bold mb-4" style={{ color: "#1b1b1b" }}>
+            Latif Voice Companion
+          </h2>
+          <div className="space-y-4">
+            <p style={{ color: "rgba(27, 27, 27, 0.8)", lineHeight: "1.75" }}>
               This application is designed to bring the profound poetry of Shah Abdul Latif Bhittai to life through
               advanced voice recognition and intelligent verse recommendations.
             </p>
 
-            <h3 className="text-lg font-semibold text-ajrak-dark mb-3">Key Features</h3>
-            <ul className="list-disc list-inside text-ajrak-dark/80 space-y-2 mb-6">
+            <h3 className="text-lg font-semibold" style={{ color: "#1b1b1b" }}>
+              Key Features
+            </h3>
+            <ul className="list-disc list-inside space-y-2" style={{ color: "rgba(27, 27, 27, 0.8)" }}>
               <li>
-                <strong>Real-time Sindhi Text:</strong> Your spoken words are converted to authentic Sindhi script in
-                real-time, directly by your browser's speech recognition.
+                <strong>Real-time Sindhi Text:</strong> Converts your voice into Sindhi script in real time.
               </li>
               <li>
-                <strong>Continuous Listening:</strong> The system listens until you manually stop the microphone.
+                <strong>Continuous Listening:</strong> Keeps the mic on until you manually stop it.
               </li>
               <li>
-                <strong>Ultra-Accurate Recommendations:</strong> Leverages advanced linguistic analysis for highly
-                relevant verse suggestions from Shah Jo Risalo.
+                <strong>Ultra-Accurate Recommendations:</strong> AI suggests the most relevant verses.
               </li>
               <li>
-                <strong>Expanded Verse Library:</strong> Includes over 100 verses for richer recommendations.
+                <strong>Expanded Verse Library:</strong> Contains over 100 rich and meaningful verses.
               </li>
             </ul>
 
-            <h3 className="text-lg font-semibold text-ajrak-dark mb-3">How to Use</h3>
-            <ol className="list-decimal list-inside text-ajrak-dark/80 space-y-2 mb-6">
-              <li>Click the microphone button to start listening</li>
-              <li>Speak naturally in Sindhi - the system will convert to Sindhi text</li>
-              <li>Watch your speech appear in authentic Sindhi script</li>
-              <li>Get relevant verse recommendations from Shah Jo Risalo</li>
-              <li>Click the microphone again to stop listening</li>
-              <li>Use thumbs up/down to improve recommendations</li>
+            <h3 className="text-lg font-semibold" style={{ color: "#1b1b1b" }}>
+              How to Use
+            </h3>
+            <ol className="list-decimal list-inside space-y-2" style={{ color: "rgba(27, 27, 27, 0.8)" }}>
+              <li>Click the microphone to start listening</li>
+              <li>Speak naturally in Sindhi</li>
+              <li>Text will appear in authentic Sindhi script</li>
+              <li>Relevant verse recommendations will appear</li>
+              <li>Click the mic again to stop</li>
+              <li>Use thumbs up/down to train the AI engine</li>
             </ol>
 
-            <div className="bg-ajrak-red/10 border border-ajrak-red/30 p-4 rounded-lg transition-all duration-300">
-              <h4 className="font-medium text-ajrak-red mb-2">Your Voice System is Ready!</h4>
-              <p className="text-sm text-ajrak-red/90">
+            <div
+              className="border p-4 rounded-lg"
+              style={{
+                backgroundColor: "rgba(139, 30, 63, 0.1)",
+                borderColor: "rgba(139, 30, 63, 0.3)",
+              }}
+            >
+              <h4 className="font-medium mb-2" style={{ color: "#8b1e3f" }}>
+                Your Voice System is Ready!
+              </h4>
+              <p className="text-sm" style={{ color: "rgba(139, 30, 63, 0.9)" }}>
                 This version combines the stability of the initial voice system with the advanced Sindhi conversion and
                 recommendation capabilities. Speak into the mic and experience it!
               </p>
