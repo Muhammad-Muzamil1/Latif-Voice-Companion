@@ -62,7 +62,7 @@
     "localforage": "^1.10.0",
     "fasttext.js": "^1.0.8",
     "svelte-transitions": "^1.2.0",
-    "noto-nastaliq-urdu": "^1.0.0"
+    "@fontsource/noto-nastaliq-urdu": "^5.2.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.9",
