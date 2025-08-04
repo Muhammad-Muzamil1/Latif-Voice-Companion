@@ -60,7 +60,7 @@
     "vaul": "^0.9.9",
     "zod": "^3.25.67",
     "localforage": "^1.10.0",
-    "fasttext.js": "^1.2.2",
+    "fasttext.js": "^1.0.8",
     "svelte-transitions": "^1.2.0",
     "noto-nastaliq-urdu": "^1.0.0"
   },
